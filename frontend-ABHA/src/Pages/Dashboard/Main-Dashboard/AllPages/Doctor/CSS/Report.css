@@ -1,0 +1,206 @@
+.reportTables {
+    width: 80%;
+    margin: 2rem auto;
+  }
+  .reportTables table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .reportTables td,
+  th {
+    border: 1px solid rgb(174, 174, 255);
+    text-align: left;
+    padding: 8px;
+  }
+  
+  .reportTables tr:nth-child(even) {
+    background-color: rgb(189, 189, 243);
+  }
+  .reportContainer {
+    width: 60%;
+    margin: 2rem auto;
+    background-color: rgb(240, 248, 255);
+    border: 2px solid rgb(174, 174, 255);
+    border-radius: 5px;
+  }
+  .reportLogin {
+    text-align: center;
+  }
+  .reportHeading {
+    width: 100%;
+    text-align: center;
+    background-color: rgb(174, 174, 255);
+    padding: 3rem 2rem;
+  }
+  .reportHeading h1 {
+    font-weight: bold;
+    color: white;
+  }
+  .reportDetail {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .reportDetail > div {
+    width: 50%;
+    padding: 2rem 2rem 1rem 2rem;
+  }
+  
+  .reportMedical {
+    display: flex;
+    justify-content: space-evenly;
+    border-top: 1px solid rgb(174, 174, 255);
+    padding-top: 2rem;
+  }
+  .reportMedical > div:nth-child(1) {
+    width: 40%;
+    padding: 0 3rem;
+  }
+  .reportMedical > div:nth-child(2) {
+    width: 60%;
+    padding: 0 2rem;
+  }
+  .reportMedical > div:nth-child(1) p {
+    color: rgb(121, 121, 254);
+  }
+  .reportMedicines {
+    width: 80%;
+    margin: 2rem auto;
+  }
+  .reportMedicines table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .reportMedicines td,
+  th {
+    border: 1px solid rgb(174, 174, 255);
+    text-align: left;
+    padding: 8px;
+  }
+  
+  .reportMedicines tr:nth-child(even) {
+    background-color: rgb(189, 189, 243);
+  }
+  
+  .reportDate {
+    padding: 1rem 2rem 2rem 3rem;
+  }
+  .reportDate p {
+    color: rgb(121, 121, 254);
+  }
+  .formsubmitbutton {
+    text-align: center;
+    width: 15%;
+    height: 2.8rem;
+    font-size: 1.3rem;
+    border-radius: 5px;
+    border: none;
+    background: #ffb195;
+    display: block;
+    margin: auto;
+    margin-top: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.4s;
+  }
+  
+  .formsubmitbutton:hover {
+    background: #f98e67;
+  }
+
+  .custom-btn {
+    width: 130px;
+    height: 40px;
+    color: #0a0a0a;
+    text-align: center;
+    margin: auto;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+     box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+     7px 7px 20px 0px rgba(0,0,0,.1),
+     4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
+  }
+
+  
+  /* 3 */
+  .btn-3 {
+    background: rgb(0,172,238);
+  background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
+    width: 130px;
+    height: 40px;
+    line-height: 42px;
+    padding: 0;
+    border: none;
+    
+  }
+  .btn-3 span {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .btn-3:before,
+  .btn-3:after {
+    position: absolute;
+    content: "";
+    right: 0;
+    top: 0;
+     background: rgba(2,126,251,1);
+    transition: all 0.3s ease;
+  }
+  .btn-3:before {
+    height: 0%;
+    width: 2px;
+  }
+  .btn-3:after {
+    width: 0%;
+    height: 2px;
+  }
+  .btn-3:hover{
+     background: transparent;
+    box-shadow: none;
+  }
+  .btn-3:hover:before {
+    height: 100%;
+  }
+  .btn-3:hover:after {
+    width: 100%;
+  }
+  .btn-3 span:hover{
+     color: rgba(2,126,251,1);
+  }
+  .btn-3 span:before,
+  .btn-3 span:after {
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: 0;
+     background: rgba(2,126,251,1);
+    transition: all 0.3s ease;
+  }
+  .btn-3 span:before {
+    width: 2px;
+    height: 0%;
+  }
+  .btn-3 span:after {
+    width: 0%;
+    height: 2px;
+  }
+  .btn-3 span:hover:before {
+    height: 100%;
+  }
+  .btn-3 span:hover:after {
+    width: 100%;
+  }
+  
