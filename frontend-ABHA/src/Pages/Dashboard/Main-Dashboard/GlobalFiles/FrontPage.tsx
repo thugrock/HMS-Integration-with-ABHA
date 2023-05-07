@@ -90,14 +90,14 @@ const FrontPage = () => {
               </div>
               <RiAdminLine className={styles["overviewIcon"]} />
             </div>
-            {/*<div className="four commondiv">
-            {" "}
-            <div>
-              <h1>{data?.bed}</h1>
-              <p>Beds</p>
+            <div className={`${styles.five} ${styles.commondiv}`}>
+              {" "}
+              <div>
+                <h1>{data?.consent}</h1>
+                <p>Consent</p>
+              </div>
+              <RiAdminLine className={styles["overviewIcon"]} />
             </div>
-            <FaBed className="overviewIcon" />
-          </div>*/}
 
             {/*<div className="five commondiv">
             {" "}

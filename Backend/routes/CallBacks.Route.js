@@ -6,7 +6,7 @@ const { LinkingModel } = require("../models/LinkingToken.model");
 const { PatientModel } = require("../models/Patient.model");
 const { AppointmentModel } = require("../models/Appointment.model")
 const { PatientVisitModel } = require("../models/PatientVisits.model")
-
+const { ConsentArtifactModel} = require("../models/ConsentArtifact.model");
 const router = express.Router();
 
 let transactionID = "";
@@ -18,8 +18,8 @@ let appoint_by_abha = null;
 let call_type = "";
 async function startSession(){
   var data = {
-      clientId: "SBX_002858",
-      clientSecret: "c3e44cf1-7806-416d-af4e-99f7ddd0c3e9"
+      clientId: process.env.clientID,
+      clientSecret:process.env.clientSecret,
       };
     
     var options = {
@@ -182,4 +182,72 @@ router.post('/v0.5/users/auth/on-confirm', async (req, res) => {
 router.post('/v0.5/links/link/on-add-contexts', async(req, res)=>{
   console.log("On-add-context received");
 })
+
+router.post('/v0.5/consent-requests/on-init', async(req, res)=>{
+  console.log("On-consent-request init received");
+  //consentID = req.body.consentRequest.id;
+  console.log('Consent ID is:', req.body);
+})
+
+router.post('/v0.5/consents/hip/notify', async(req, res)=>{
+  console.log("Consent hip notify received");
+  var data = req.body;
+  console.log(data);
+  var consent = {
+    consentId: data.notification.consentDetail.consentId,
+    createdAt: data.notification.consentDetail.createdAt,
+    purpose_code: data.notification.consentDetail.purpose.code,
+    patient_abha:   data.notification.consentDetail.patient.id,
+    consent_manager:  data.notification.consentDetail.consentManager.id,
+    hip_id:  data.notification.consentDetail.hip.id,
+    hip_name:  data.notification.consentDetail.hip.name,
+    hiTypes:  data.notification.consentDetail.hiTypes,
+    accessMode:  data.notification.consentDetail.permission.accessMode,
+    from_date:  data.notification.consentDetail.permission.dateRange.from,
+    to_date:  data.notification.consentDetail.permission.dateRange.to,
+    erase_date: data.notification.consentDetail.permission.dataEraseAt,
+    status: data.notification.status,
+    request_id: data.requestId,
+    care_contexts: data.notification.consentDetail.careContexts,
+    }
+    console.log(consent);
+
+    const newConsent = new ConsentArtifactModel
+    (consent);
+    await newConsent.save();
+    var requestID = uuidv4();
+    var Timestamp = new Date().toISOString();
+    var callback_data = {
+      requestId: requestID,
+      timestamp: Timestamp,
+      acknowledgement: [
+          {
+              status: "OK",
+              consentId: data.notification.consentDetail.consentId,
+          }
+      ],
+      resp: {
+          requestId: data.requestId,
+      }
+    }
+    var options_local = {
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': '*/*',
+          'Connection': 'keep-alive',
+          'X-CM-ID': 'sbx',
+          'Authorization': 'Bearer '+accessToken.toString()
+      }
+  };
+  await startSession();
+  await axios.post('https://dev.abdm.gov.in/gateway/v0.5/consents/hip/on-notify', callback_data, options_local)
+    .then((res) => {
+        console.log('hip on-notify sent Successful')
+        })
+        .catch((err) => {
+        console.log("hip on-notify sent Successful");
+    })
+
+})
+
 module.exports = router;

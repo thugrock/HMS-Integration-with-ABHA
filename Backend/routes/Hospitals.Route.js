@@ -5,7 +5,7 @@ const { DoctorModel } = require("../models/Doctor.model");
 const { FrontDeskModel } = require("../models/FrontDesk.model");
 const { PatientModel } = require("../models/Patient.model");
 const { ReportModel } = require("../models/Report.model");
-
+const { ConsentArtifactModel } = require("../models/ConsentArtifact.model")
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -16,6 +16,7 @@ router.get("/", async (req, res) => {
     let reports = await ReportModel.find();
     let appointments = await AppointmentModel.find();
     let doctors = await DoctorModel.find();
+    let consents = await ConsentArtifactModel.find();
     let data = {
       admin: admins.length,
       patient: patients.length,
@@ -23,6 +24,7 @@ router.get("/", async (req, res) => {
       report: reports.length,
       doctor: doctors.length,
       appointment: appointments.length,
+      consent: consents.length,
     };
     res.status(200).send({ data });
   } catch (error) {

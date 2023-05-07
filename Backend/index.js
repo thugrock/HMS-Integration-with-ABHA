@@ -16,7 +16,8 @@ const prescriptionRouter = require("./routes/Prescriptions.Route");
 const reportRouter = require("./routes/Reports.Route");
 const callBacks = require("./routes/CallBacks.Route")
 const careContextRouter = require("./routes/CareContexts.Route");
-
+const consentRouter = require("./routes/Consents.Route");
+const hiuCallBacks = require("./routes/HiuCallbacks.Route");
 const app = express();
 
 app.use(express.json());
@@ -26,6 +27,7 @@ app.get("/", (req, res) => {
   res.send("Homepage");
 });
 app.use("/",callBacks);
+app.use("/",hiuCallBacks);
 app.use("/admin", adminRouter);
 app.use("/appointments", appointmentRouter);
 app.use("/doctors", doctorRouter);
@@ -36,6 +38,8 @@ app.use("/payments", paymentRouter);
 app.use("/prescriptions", prescriptionRouter);
 app.use("/reports", reportRouter);
 app.use("/carecontexts", careContextRouter);
+app.use("/consents", consentRouter);
+
 
 let accessToken = "";
 app.listen(process.env.port, async () => {
@@ -49,9 +53,10 @@ app.listen(process.env.port, async () => {
   console.log(`Listening at port ${process.env.port}`);
 });
 async function session_and_patch(){ 
+    console.log(process.env.clientID.toString())
     var data = {
-    clientId: "SBX_002858",
-    clientSecret: "c3e44cf1-7806-416d-af4e-99f7ddd0c3e9"
+    clientId: process.env.clientID.toString(),
+    clientSecret: process.env.clientSecret.toString()
     };
 
     var options = {

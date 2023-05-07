@@ -37,6 +37,9 @@ function NavBars() {
                   Services
                 </Link>
   </NavDropdown>*/}
+              {data?.isAuthenticated ? (<Link to={"/getConsents"} className="nav-link">
+                Consents
+              </Link>): null}
               <Link to={"/booking"} className="nav-link">
                 Booking
               </Link>

@@ -11,6 +11,7 @@ const initialState = {
   dashboard: [],
   Appointments: [],
   carecontexts: [],
+  consents: [],
 };
 
 export default function dataReducer(state = initialState, { type, payload }) {
@@ -52,7 +53,12 @@ export default function dataReducer(state = initialState, { type, payload }) {
         loading: false,
         carecontexts: payload,
       };
-
+      case types.REQUEST_CONSENT_SUCCESS:
+        return {
+          ...state,
+          loading: false,
+          consents: payload,
+        };
     default:
       return state;
   }

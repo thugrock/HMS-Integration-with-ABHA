@@ -10,8 +10,8 @@ const router = express.Router();
 let accessToken = "";
 async function startSession(){
     var data = {
-        clientId: "SBX_002858",
-        clientSecret: "c3e44cf1-7806-416d-af4e-99f7ddd0c3e9"
+        clientId: process.env.clientID.toString(),
+        clientSecret: process.env.clientSecret.toString(),
         };
       
       var options = {

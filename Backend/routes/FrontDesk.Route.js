@@ -89,8 +89,8 @@ router.delete("/:frontDeskId", async (req, res) => {
 router.post("/registerByAbha", async(req, res) =>{
   const {abha, purpose} = req.body;
   const data = {
-  clientId: "SBX_002858",
-  clientSecret: "c3e44cf1-7806-416d-af4e-99f7ddd0c3e9"
+  clientId: process.env.clientId,
+  clientSecret: process.env.clientSecret,
   };
 
   const options = {

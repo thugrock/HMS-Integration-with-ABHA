@@ -12,14 +12,17 @@ const notify = (text) => toast(text);
 function Account() {
   let initialData = {
     patientName: "",
-    age: "",
-    gender: "",
+    abhaID: "",
+    DOB: "",
     mobile: "",
-    address: "",
     email: "",
+    address: "",
     disease: "",
-    time: "",
+    department: "",
     date: "",
+    time: "",
+    gender: "",
+    docID: "",
   };
   const [formData, setFormData] = useState(initialData);
   const [loading, setLoading] = useState(false);
@@ -81,6 +84,16 @@ function Account() {
                       </div>
                       <div className="form-group">
                         <input
+                          type="text"
+                          className="form-control"
+                          placeholder="ABHA ID"
+                          value={formData.abhaID}
+                          name="abhaID"
+                          onChange={handleFormChange}
+                        ></input>
+                      </div>
+                      <div className="form-group">
+                        <input
                           type="number"
                           className="form-control"
                           placeholder="Phone Number"
@@ -90,6 +103,7 @@ function Account() {
                           required
                         ></input>
                       </div>
+
                       <div className="form-group">
                         <input
                           type="text"
@@ -103,14 +117,30 @@ function Account() {
                       </div>
                       <div className="form-group">
                         <input
-                          type="number"
+                          type="date"
                           className="form-control"
-                          placeholder="Age"
-                          value={formData.age}
-                          name="age"
+                          placeholder="DOB"
+                          value={formData.DOB}
+                          name="DOB"
                           onChange={handleFormChange}
                           required
                         ></input>
+                      </div>
+                      <div>
+                        <label>Department</label>
+                        <div className="inputdiv">
+                          <select
+                            name="department"
+                            value={formData.department}
+                            onChange={handleFormChange}
+                            required
+                          >
+                            <option value="">Select</option>
+                            <option value="Cardiology">Cardiology</option>
+                            <option value="Neurology">Neurology</option>
+                            <option value="ENT">ENT</option>
+                          </select>
+                        </div>
                       </div>
                       <div className="form-group">
                         <select
@@ -155,6 +185,22 @@ function Account() {
                           onChange={handleFormChange}
                           required
                         ></input>
+                      </div>
+                      <div>
+                        <label>Doctor</label>
+                        <div className="inputdiv">
+                          <select
+                            name="docID"
+                            value={formData.docID}
+                            onChange={handleFormChange}
+                            required
+                          >
+                            <option value="">Select</option>
+                            <option value="1681145607852">Prabhas Raju</option>
+                            <option value="1681146225349">Samantha</option>
+                            <option value="1681160357330">Sandhya</option>
+                          </select>
+                        </div>
                       </div>
                       <button
                         type="submit"

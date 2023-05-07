@@ -2,13 +2,14 @@ import { Table } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { GetAllReports } from "../../../../../Redux/Datas/action";
+import { GetAllReports, RequestConsent } from "../../../../../Redux/Datas/action";
 import Sidebar from "../../GlobalFiles/Sidebar";
 import styles from "./CSS/Doctor_Profile.module.css";
 import styles_global from "../../GlobalFiles/CommonCSS.module.css";
 import "../Admin/CSS/Payment.css";
 
 const InterRecords = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
     data: { user },
@@ -16,6 +17,15 @@ const InterRecords = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const [inputValue, setInputValue] = useState("");
 
+  const [formData, setFormData] = useState({
+    purpose_code:"",
+    abha: "",
+    docName: user.docName,
+    docID: user.docID,
+    report_type: [],
+    from_date: "",
+    to_date: "",
+  });
   const handleOptionChange = (e) => {
     console.log(e.target.value);
     setSelectedOption(e.target.value);
@@ -25,11 +35,32 @@ const InterRecords = () => {
   const handleInputChange = (e) => {
     setInputValue(e.value);
   };
-
-  const handleSubmit = () => {
+  const handleInputChangeForm = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+  const handleSubmit = (e) => {
     // Perform form submission logic here
     // Navigate to other page using history.push('/other-page')
-    navigate("/other-page");
+    e.preventDefault();
+    // Perform form submission logic here using formData state
+    console.log(formData);
+    dispatch(RequestConsent(formData)).then((res) => {
+      console.log(res);
+    });
+    // Reset form data after submission
+    setFormData({
+      purpose_code:"",
+      abha: "",
+      docName: user.docName,
+      docID: user.docID,
+      report_type: [],
+      from_date: "",
+      to_date: "",
+    });
   };
 
   return (
@@ -42,7 +73,7 @@ const InterRecords = () => {
         <div className={styles_global.AfterSideBar}>
           {user !== null && user.userType === "doctor" && (
             <div className={"Payment_Page"}>
-              <h1 style={{ marginBottom: "2rem" }}>Inter Records Section</h1>
+              <h1 style={{ marginBottom: "2rem" }}>Get Patient Consent</h1>
               <div className={"inputdiv"}>
                 <div className="form-check">
                   <input
@@ -53,7 +84,7 @@ const InterRecords = () => {
                     value="option1"
                     onClick={handleOptionChange}
                   />
-                  <label className="form-check-label" for="flexRadioDefault1">
+                  <label className="form-check-label" htmlFor="flexRadioDefault1">
                     Previously Collected Records
                   </label>
                 </div>
@@ -67,7 +98,7 @@ const InterRecords = () => {
                     value="option2"
                     onClick={handleOptionChange}
                   />
-                  <label className="form-check-label" for="flexRadioDefault2">
+                  <label className="form-check-label" htmlFor="flexRadioDefault2">
                     Get consent for inter records
                   </label>
                 </div>
@@ -83,44 +114,83 @@ const InterRecords = () => {
                 )}
                 {selectedOption === "option2" && (
                   <>
-                    <div>
-                      <input
-                        type="text"
-                        value={inputValue}
-                        onChange={handleInputChange}
-                        placeholder="Enter Patients ABHA ID"
-                      />
-                    </div>
-                    <div>
-                      <label>Records From</label>
-                      <input
-                        type="date"
-                        placeholder="dd-mm-yyyy"
-                        name="fromdate"
-                        value={"fromdate"}
-                      />
-                    </div>
-                    <div>
-                      <label>Records To</label>
-                      <input
-                        type="date"
-                        placeholder="dd-mm-yyyy"
-                        name="todate"
-                        value={"todate"}
-                      />
+                    <div className={styles_global.AfterSideBar}>
+                      <div className={"Payment_Page"}>
+                        <h1 style={{ marginBottom: "2rem" }}>Consent Details</h1>
+                        {user !== null && user.userType === "doctor" && (
+                          <form onSubmit={handleSubmit}>
+                            <div>
+                              <label htmlFor="purpose">Purpose of Consent</label>
+                              <input
+                                type="text"
+                                id="purpose_code"
+                                name="purpose_code"
+                                value={formData.purpose_code}
+                                onChange={handleInputChangeForm}
+                                required
+                              />
+                            </div>
+                            <div>
+                              <label htmlFor="name">Enter ABHA ID</label>
+                              <input
+                                type="text"
+                                id="abha"
+                                name="abha"
+                                value={formData.abha}
+                                onChange={handleInputChangeForm}
+                                required
+                              />
+                            </div>
+                            <div>
+                              <label htmlFor="email">Records to be fetched from:</label>
+                              <input
+                                type="date"
+                                id="from_date"
+                                name="from_date"
+                                value={formData.from_date}
+                                onChange={handleInputChangeForm}
+                                required
+                              />
+                            </div>
+                            <div>
+                              <label htmlFor="phone">Records to be fetched upto:</label>
+                              <input
+                                type="date"
+                                id="to_date"
+                                name="to_date"
+                                value={formData.to_date}
+                                onChange={handleInputChangeForm}
+                                required
+                              />
+                            </div>
+          
+                            <button
+                              className={"formsubmitbutton bookingbutton"}
+                              type="submit"
+                            >
+                              Submit
+                            </button>
+                          </form>
+                        )}
+                        {user === null && <div>Not Authorised</div>}
+                        {user !== null && user.userType !== "doctor" && (
+                          <div>Not Authorised</div>
+                        )}
+                      </div>
                     </div>
                   </>
                 )}
               </div>
-              <div>
+              {/*<div>
                 <button
                   className={"formsubmitbutton bookingbutton"}
                   onClick={handleSubmit}
                 >
                   Submit
                 </button>
-              </div>
+                </div>*/}
             </div>
+
           )}
           {user === null && <div>Not Authorised</div>}
           {user !== null && user.userType !== "doctor" && (

@@ -291,3 +291,31 @@ export const GetFiles = (data) => async (dispatch) => {
     return "error";
   }
 };
+export const GetAllConsents = (data) => async(dispatch) => {
+  try {
+    const res = await axios.get(
+      `http://0.0.0.0:13962/consents/getAllConsents`,
+      data
+    );
+    console.log(res.data);
+    dispatch({ type: types.REQUEST_CONSENT_SUCCESS, payload: res.data });
+    return res.data;
+  }catch(error){
+    console.log(error);
+    return "error in getAllConsents";
+  }
+};
+export const RequestConsent = (data) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      `http://0.0.0.0:13962/consents/requestConsent`,
+      data
+    );
+    console.log(res.data);
+    return res.data;
+  } catch (error) {
+    console.log(data);
+    console.log(error);
+    return "error";
+  }
+};

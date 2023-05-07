@@ -27,6 +27,8 @@ import NotFound from "../Components/Patient/notfound";
 import Login from "../Components/Patient/login";
 import Service from "../Components/Patient/service";
 import Report from "../Components/Patient/Report";
+import Consents from "../Components/Patient/consent";
+
 import Team from "../Sections/Team";
 
 const AllRoutes = () => {
@@ -62,6 +64,7 @@ const AllRoutes = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/service" element={<Service />} />
         <Route path="/Report" element={<Report />} />
+        <Route path="/getConsents" element={<Consents />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
