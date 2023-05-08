@@ -319,3 +319,12 @@ export const RequestConsent = (data) => async (dispatch) => {
     return "error";
   }
 };
+export const GetExternalRecords = () => async (dispatch) => {
+  try {
+    const res = await axios.get("http://0.0.0.0:13962/getExternal");
+    console.log(res)
+    return res.data;
+  } catch (error) {
+    return [];
+  }
+};
